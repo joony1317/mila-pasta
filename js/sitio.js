@@ -15,8 +15,8 @@
     whatsappTexto: "+52 771 363 6580",
     whatsappUrl: "https://wa.me/527713636580?text=" + encodeURIComponent("Hola Mila Pasta, me gustaría recibir más información."),
     correo: "milapastacontacto@gmail.com",
-    privacidadPdf: "", // PENDIENTE: p. ej. "docs/politica-de-privacidad.pdf"
-    avisoLegalPdf: ""  // PENDIENTE: p. ej. "docs/aviso-legal.pdf"
+    privacidadUrl: "aviso-de-privacidad.html",
+    avisoLegalUrl: "aviso-legal.html"
   };
 
   var PAGINAS = [
@@ -24,6 +24,7 @@
     { id: "historia", texto: "Nuestra historia", url: "historia.html" },
     { id: "producto", texto: "Producto", url: "producto.html" },
     { id: "recetas", texto: "Recetas", url: "recetas.html" },
+    { id: "distribuidora", texto: "Distribuidora", url: "distribuidora.html" },
     { id: "contacto", texto: "Contacto", url: "#contacto" }
   ];
 
@@ -79,7 +80,7 @@
   /* ---------- Pie de página ---------- */
   function legal(texto, url) {
     return url
-      ? '<li><a href="' + url + '" target="_blank" rel="noopener">' + texto + "</a></li>"
+      ? '<li><a href="' + url + '">' + texto + "</a></li>"
       : '<li class="pendiente">' + texto + "<small>Disponible próximamente</small></li>";
   }
 
@@ -96,7 +97,7 @@
             '<p class="pie__lema">“Naturalmente pasta, verdaderamente nopal”</p>' +
           "</div>" +
           '<div><h2>Explora</h2><ul>' +
-            PAGINAS.slice(0, 4).map(function (p) { return '<li><a href="' + p.url + '">' + p.texto + "</a></li>"; }).join("") +
+            PAGINAS.filter(function (p) { return p.id !== "contacto"; }).map(function (p) { return '<li><a href="' + p.url + '">' + p.texto + "</a></li>"; }).join("") +
           "</ul></div>" +
           '<div><h2>Contacto</h2><ul class="pie__contacto">' +
             "<li>" + ICONO.instagram + '<a href="' + CONTACTO.instagramUrl + '" target="_blank" rel="noopener">' + CONTACTO.instagramUsuario + "</a></li>" +
@@ -105,8 +106,8 @@
             "<li>" + ICONO.correo + '<a href="mailto:' + CONTACTO.correo + '">' + CONTACTO.correo + "</a></li>" +
           "</ul></div>" +
           "<div><h2>Legal</h2><ul>" +
-            legal("Política de Privacidad", CONTACTO.privacidadPdf) +
-            legal("Aviso Legal", CONTACTO.avisoLegalPdf) +
+            legal("Aviso de Privacidad", CONTACTO.privacidadUrl) +
+            legal("Aviso Legal", CONTACTO.avisoLegalUrl) +
           "</ul></div>" +
         "</div>" +
         '<div class="pie__base"><span>© ' + new Date().getFullYear() + " Mila Pasta. Todos los derechos reservados.</span><span>Orgullosamente hecha en Hidalgo, México.</span></div>" +
